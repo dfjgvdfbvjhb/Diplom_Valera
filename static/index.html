@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ Учебная платформа | Информационная безопасность</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Загрузка...</p>
+        </div>
+
+        <!-- Форма авторизации / регистрации -->
+        <div id="authContainer" class="auth-card">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="login">🔐 Вход</button>
+                <button class="tab-btn" data-tab="register">📝 Регистрация</button>
+            </div>
+
+            <div id="loginFormBlock">
+                <h1>🛡️ Учебная платформа</h1>
+                <h2>Основы информационной безопасности</h2>
+                <div class="input-group"><input type="text" id="loginUsername" placeholder="Логин"></div>
+                <div class="input-group"><input type="password" id="loginPassword" placeholder="Пароль"></div>
+                <button id="doLoginBtn" class="login-btn">Войти</button>
+                <div class="demo-accounts">
+                    <p>📋 Демо-аккаунты:</p>
+                    <p><strong>Студент:</strong> student / 123</p>
+                    <p><strong>Преподаватель:</strong> teacher / 123</p>
+                    <p><strong>Админ:</strong> admin / admin123</p>
+                </div>
+            </div>
+
+            <div id="registerFormBlock" style="display:none;">
+                <h1>📝 Регистрация студента</h1>
+                <div class="input-group"><input type="text" id="regName" placeholder="Ваше полное имя"></div>
+                <div class="input-group"><input type="text" id="regLogin" placeholder="Логин"></div>
+                <div class="input-group"><input type="password" id="regPassword" placeholder="Пароль"></div>
+                <button id="doRegisterBtn" class="reg-btn">Создать аккаунт</button>
+                <div class="info-note">
+                    ℹ️ При регистрации создаётся аккаунт студента. 
+                    Преподавателей и администраторов может создавать только администратор.
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель студента -->
+        <div id="studentPanel" class="panel" style="display:none">
+            <div class="header">
+                <h1>🛡️ Основы ИБ</h1>
+                <div class="user-info">
+                    <span>👨‍🎓 <span id="studentName"></span></span>
+                    <span class="role-badge student">Студент</span>
+                    <button id="logoutStudent" class="logout-btn">Выйти</button>
+                </div>
+            </div>
+            <div class="progress-section">
+                <h3>📊 Мой прогресс</h3>
+                <div class="progress-bar"><div class="progress-fill" id="studentProgress"></div></div>
+                <p id="studentStats"></p>
+            </div>
+            <div class="sections-grid" id="sectionsGrid"></div>
+        </div>
+
+        <!-- Панель преподавателя (только просмотр прогресса студентов) -->
+        <div id="teacherPanel" class="panel" style="display:none">
+            <div class="header">
+                <h1>👩‍🏫 Панель преподавателя</h1>
+                <div class="user-info">
+                    <span>👩‍🏫 <span id="teacherName"></span></span>
+                    <span class="role-badge teacher">Преподаватель</span>
+                    <button id="logoutTeacher" class="logout-btn">Выйти</button>
+                </div>
+            </div>
+            <div class="teacher-stats">
+                <div class="stat-card">
+                    <h3>👨‍🎓 Всего студентов</h3>
+                    <p id="totalStudents">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📚 Всего разделов</h3>
+                    <p>10</p>
+                </div>
+            </div>
+                <div class="student-list-section">
+                    <h3>📋 Прогресс студентов</h3>
+                    <div id="studentsTable"></div>
+            </div>
+        </div>
+
+        <!-- Панель администратора -->
+        <div id="adminPanel" class="panel" style="display:none">
+            <div class="header">
+                <h1>👑 Панель администратора</h1>
+                <div class="user-info">
+                    <span>👑 <span id="adminName"></span></span>
+                    <span class="role-badge admin">Администратор</span>
+                    <button id="logoutAdmin" class="logout-btn">Выйти</button>
+                </div>
+            </div>
+            <div class="admin-actions">
+                <button id="showCreateTeacherBtn" class="admin-btn">➕ Создать преподавателя</button>
+            </div>
+            <div id="createTeacherSection" style="display:none;" class="create-teacher-form">
+                <h3>Создание нового преподавателя</h3>
+                <div class="inline-input">
+                    <input type="text" id="newTeacherName" placeholder="Имя преподавателя">
+                    <input type="text" id="newTeacherLogin" placeholder="Логин">
+                    <input type="password" id="newTeacherPass" placeholder="Пароль">
+                </div>
+                <button id="confirmCreateTeacher" class="admin-btn">Создать</button>
+            </div>
+            <h3>📋 Список преподавателей</h3>
+            <div id="teachersList"></div>
+            <h3 style="margin-top:30px">📊 Прогресс студентов</h3>
+            <div id="adminStudentsList"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
